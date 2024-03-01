@@ -84,40 +84,49 @@ export function NewNoteCard({ onNoteCreated }: NewNoteCardProps) {
 
   return (
     <Dialog.Root>
-      <Dialog.Trigger className="rounded-md flex flex-col bg-slate-700 p-5 gap-3 text-left hover:ring-2 outline-none hover:ring-slate-600 focus-visible:ring-2 focus-visible:ring-lime-400">
-        <span className="text-sm font-medium text-slate-200">
+      <Dialog.Trigger className="rounded-md flex flex-col bg-neutral-700 p-5 gap-3 text-left hover:ring-2 outline-none hover:ring-neutral-600 focus-visible:ring-2 focus-visible:ring-fuchsia-400">
+        <span className="text-sm font-medium text-neutral-200">
           Adicionar nota
         </span>
-        <p className="text-sm leading-6 text-slate-400">
+        <p className="text-sm leading-6 text-neutral-400">
           Grave uma nota em áudio que será convertida para texto automaticamente
         </p>
       </Dialog.Trigger>
 
       <Dialog.Portal>
         <Dialog.Overlay className="inset-0 fixed bg-black/50" />
-        <Dialog.Content className="fixed overflow-hidden inset-0 md:inset-auto md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:max-w-[640px] md:h-[60vh] w-full bg-slate-700 md:rounded-md flex flex-col outline-none">
-          <Dialog.Close className="absolute right-0 top-0 bg-slate-800 text-slate-400 p-1.5 hover:text-slate-100">
+        <Dialog.Content
+          data-recording={isRecording}
+          className="fixed overflow-hidden inset-0 md:inset-auto md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:max-w-[640px] md:h-[60vh] w-full bg-neutral-700 md:rounded-md flex flex-col outline-none data-[recording=true]:border data-[recording=true]:border-red-500"
+        >
+          <Dialog.Close
+            onClick={() => {
+              setIsRecording(false)
+              setShouldShowOnboarding(true)
+            }}
+            className="absolute right-0 top-0 bg-neutral-800 text-neutral-400 p-1.5 hover:text-neutral-100"
+          >
             <X className="size-5" />
           </Dialog.Close>
           <form className="flex-1 flex flex-col">
             <div className="flex flex-1 flex-col gap-3 p-5">
-              <span className="text-sm font-medium text-slate-300">
+              <span className="text-sm font-medium text-neutral-300">
                 Adicionar nota
               </span>
 
               {shouldShowOnboarding ? (
-                <p className="text-sm leading-6 text-slate-400">
+                <p className="text-sm leading-6 text-neutral-400">
                   Comece{' '}
                   <button
                     onClick={handleStartRecording}
                     type="button"
-                    className="font-medium text-lime-400 hover:underline"
+                    className="font-medium text-fuchsia-400 hover:underline"
                   >
                     gravando uma nota
                   </button>{' '}
                   em áudio ou se preferir{' '}
                   <button
-                    className="font-medium text-lime-400 hover:underline"
+                    className="font-medium text-fuchsia-400 hover:underline"
                     type="button"
                     onClick={handleStartEditor}
                   >
@@ -128,7 +137,7 @@ export function NewNoteCard({ onNoteCreated }: NewNoteCardProps) {
               ) : (
                 <textarea
                   autoFocus
-                  className="text-sm leading-6 text-slate-400 bg-transparent resize-none flex-1 outline-none"
+                  className="text-sm leading-6 text-neutral-400 bg-transparent resize-none flex-1 outline-none"
                   onChange={handleContentChanged}
                   value={content}
                 />
@@ -139,7 +148,7 @@ export function NewNoteCard({ onNoteCreated }: NewNoteCardProps) {
               <button
                 type="button"
                 onClick={handleStopRecording}
-                className=" w-full flex items-center justify-center gap-2 bg-slate-900 py-4 text-center text-sm text-slate-300 outline-none font-medium hover:text-slate-100"
+                className=" w-full flex items-center justify-center gap-2 bg-neutral-900 py-4 text-center text-sm text-neutral-300 outline-none font-medium hover:text-neutral-100"
               >
                 <div className="size-3 rounded-full bg-red-500 animate-pulse" />
                 Gravando! (clique p/ interromper)
@@ -148,7 +157,8 @@ export function NewNoteCard({ onNoteCreated }: NewNoteCardProps) {
               <button
                 type="button"
                 onClick={handleSaveNote}
-                className=" w-full bg-lime-400 py-4 text-center text-sm text-lime-900 outline-none font-medium hover:bg-lime-500"
+                disabled={content === ''}
+                className=" w-full bg-fuchsia-400 py-4 text-center text-sm text-fuchsia-900 outline-none font-medium hover:bg-fuchsia-500 disabled:bg-neutral-600 disabled:text-neutral-500"
               >
                 Salvar nota
               </button>
