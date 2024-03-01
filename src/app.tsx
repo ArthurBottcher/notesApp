@@ -55,17 +55,17 @@ export function App() {
 
   return (
     <div className="mx-auto max-w-6xl my-12 space-y-6 px-5">
-      <span className="text-slate-500 italic">App notes</span>
+      <span className="text-neutral-500 italic font-bold">Thoth Scrolls</span>
       <form className="w-full">
         <input
           type="text"
           placeholder="Busque em suas notas ..."
-          className="w-full bg-transparent text-3xl font-semibold tracking-tight placeholder:text-slate-500 outline-none"
+          className="w-full bg-transparent text-3xl font-semibold tracking-tight placeholder:text-neutral-500 outline-none"
           onChange={handleSearch}
         />
       </form>
 
-      <div className=" h-px bg-slate-700" />
+      <div className=" h-px bg-neutral-700" />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[250px]">
         <NewNoteCard onNoteCreated={onNoteCreated} />
         {filteredNotes.map((note) => {
